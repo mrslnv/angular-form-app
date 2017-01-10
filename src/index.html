@@ -2,13 +2,35 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>AngularFormApp</title>
+  <title>AngularTodoApp</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script type="text/javascript" src="assets/qrcode/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/qrcode/qrcode.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
-  <app-root>Loading...</app-root>
+  <!--app-root>Loading...</app-root-->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <app-qr-form>form</app-qr-form>
+      </div>
+    </div>
+  </div>
+
+  <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+
+  <script type="text/javascript">
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+      width : 100,
+      height : 100
+    });
+
+    qrcode.makeCode("dummy");
+  </script>
 </body>
 </html>
