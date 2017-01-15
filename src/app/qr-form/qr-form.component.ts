@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+
+declare var QRCode: any;
 
 @Component({
   selector: 'app-qr-form',
@@ -7,31 +8,44 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./qr-form.component.css']
 })
 export class QrFormComponent implements OnInit {
+  qrEl = new QRCode(document.getElementById("qrcode"), {
+    width: 400,
+    height: 400
+  });
 
-  // The FormGroup object as you may remember from the simple form example exposes various API’s for dealing with forms. Here we are creating a new object and setting its type to FormGroup
-  complexForm : FormGroup;
+  season_1: Season = {label: '1 - Jan-Mar'};
 
-  // We are passing an instance of the FormBuilder to our constructor
-  constructor(fb: FormBuilder){
-    // Here we are using the FormBuilder to build out our form.
-    this.complexForm = fb.group({
-      // We can set default values by passing in the corresponding value or leave blank if we wish to not set the value. For our example, we’ll default the gender to female.
-      'firstName' : '',
-      'lastName': '',
-      'gender' : 'Female',
-      'hiking' : false,
-      'running' : false,
-      'swimming' : false
-    })
+  default_model = {
+    fistName: '',
+    lastName: '',
+    season: this.season_1
   }
 
-  // Again we’ll implement our form submit function that will just console.log the results of our form
-  submitForm(value: any):void{
-    console.log('Reactive Form Data: ')
-    console.log(value);
-  }
+  seasons: Season[] = [
+    {label: '1 - Jan-Mar'},
+    {label: '2 - Apr-Jun'}
+  ];
+
+  model = Object.assign({}, this.default_model);
 
   ngOnInit() {
   }
 
+  generate() {
+    this.qrEl.makeCode(this.model.fistName + this.model.lastName);
+
+
+    console.log("submit")
+  }
+
+  clearForm() {
+    Object.assign(this.model, this.default_model);
+  }
+}
+export class Season {
+  label: string;
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
 }

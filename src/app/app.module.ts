@@ -14,7 +14,6 @@ import { QrFormComponent } from './qr-form/qr-form.component';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpModule
   ],
   providers: [],

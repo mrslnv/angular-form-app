@@ -1,46 +1,40 @@
 <div class="jumbotron">
   <h2>Data Driven (Reactive) Form</h2>
   <!-- Right of the bat, we no longer declare a local variable but use the formGroup directive and set it the complexForm object we defined in the constructor. Throughout the form, we will reference the complexForm root object as can be seen in the submitForm function.-->
-  <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
+  <form (ngSubmit)="generate()" #qrForm="ngForm">
     <div class="form-group">
-      <label>First Name:</label>
+      <label for="fistName">First Name:</label>
       <!-- Rather than set an ngModel, we use the formControl directive to sync our input to the complexForm object. Notice that we are also setting the attribute we wish the corresponding input to sync with. We no longer need the name attribute, but can optionally add it. -->
-      <input class="form-control" type="text" placeholder="John" [formControl]="complexForm.controls['firstName']">
+      <input id="fistName" name="firstName" class="form-control" type="text" [(ngModel)]="model.fistName" required
+             #firstName="ngModel">
+      <div [hidden]="firstName.valid || firstName.pristine"
+           class="alert alert-danger">
+        First name is required
+      </div>
     </div>
     <div class="form-group">
-      <label>Last Name</label>
-      <input class="form-control" type="text" placeholder="Doe" [formControl]="complexForm.controls['lastName']">
+      <label for="lastName">Last Name</label>
+      <input id="lastName" name="lastName" class="form-control" type="text" [(ngModel)]="model.lastName"  required
+             #lastName="ngModel">
+      <div [hidden]="lastName.valid || lastName.pristine"
+           class="alert alert-danger">
+        First name is required
+      </div>
     </div>
     <div class="form-group">
-      <label>Gender</label>
+      <label>Season</label>
     </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="gender" value="Male" [formControl]="complexForm.controls['gender']">
-        Male
+    <div class="form-group">
+      <label for="season">
+        Season
       </label>
+      <select id="season" name="season" [(ngModel)]="model.season" required>
+        <option *ngFor="let s of seasons" [value]="s" [selected]="model.season.label==s.label">
+          {{s.label}}
+        </option>
+      </select>
     </div>
-    <div class="radio">
-      <label>
-        <!-- This works the same way for radio and checkboxes as can be seen below -->
-        <input type="radio" name="gender" value="Female" [formControl]="complexForm.controls['gender']">
-        Female
-      </label>
-    </div>
-    <div class="form-group">
-      <label>Activities</label>
-    </div>
-    <label class="checkbox-inline">
-      <input type="checkbox" value="hiking" name="hiking" [formControl]="complexForm.controls['hiking']"> Hiking
-    </label>
-    <label class="checkbox-inline">
-      <input type="checkbox" value="swimming" name="swimming" [formControl]="complexForm.controls['swimming']"> Swimming
-    </label>
-    <label class="checkbox-inline">
-      <input type="checkbox" value="running" name="running" [formControl]="complexForm.controls['running']"> Running
-    </label>
-    <div class="form-group">
-      <button type="submit" class="btn btn-default">Submit</button>
-    </div>
+    <button type="button" class="btn btn-default" (click)="generate()" [disabled]="!qrForm.form.valid">Generate QR Code</button>
+    <button type="button" class="btn" (click)="clearForm()" >Clear</button>
   </form>
 </div>

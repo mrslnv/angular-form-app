@@ -10,27 +10,22 @@
   <script type="text/javascript" src="assets/qrcode/jquery.min.js"></script>
   <script type="text/javascript" src="assets/qrcode/qrcode.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="app/qr-form/qr-form.component.css" rel="stylesheet">
 
 </head>
 <body>
   <!--app-root>Loading...</app-root-->
   <div class="container">
     <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">
+      <div class="col-md-6">
         <app-qr-form>form</app-qr-form>
+      </div>
+      <div class="col-md-6">
+        <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
       </div>
     </div>
   </div>
 
-  <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
 
-  <script type="text/javascript">
-    var qrcode = new QRCode(document.getElementById("qrcode"), {
-      width : 100,
-      height : 100
-    });
-
-    qrcode.makeCode("dummy");
-  </script>
 </body>
 </html>
